@@ -1,0 +1,46 @@
+﻿@using Tutorias.Models;
+@using Microsoft.AspNetCore.Identity
+@inject SignInManager<ApplicationUser> SignInManager
+@inject UserManager<ApplicationUser> UserManager
+
+@model List<PetitionItem>
+
+<div class="tab-content jumbotron border rounded text-break">
+    <div class="tab-pane fade show active" id="profile">
+
+        <div class="container mt-4">
+            @if (Model.Capacity == 0)
+            {
+                
+            }
+            else
+            {
+                <div class="mx-4">
+                    <h1>Peticiones de tutorías.</h1>
+                </div>
+                
+                <div class="row">
+                    @foreach (PetitionItem p in Model)
+                    {
+                        <div class="m-4">
+                            <div class="card" style="width: 95%;">
+                                <div class="card-header">
+                                    Solicitud
+                                </div>
+                                <ul class="list-group list-group-flush">
+                                    <li class="list-group-item"><h3>@p.SenderName</h3></li>
+                                    <li class="list-group-item"><h5>@p.SenderEmail</h5></li>
+                                    <li class="list-group-item"><h5>@p.Message</h5></li>
+                                </ul>
+                                <div class="card-footer">
+                                    <a class="btn btn-danger m-2" asp-route-id="@p.PetitionId" asp-action="RemovePetition" role="button">Rechazar</a>
+                                    <a class="btn btn-success m-2" asp-route-id="@p.PetitionId" asp-action="AcceptPetition" role="button">Finalizada</a>
+                                </div>
+                            </div>
+                        </div>
+                    }
+                </div>
+            }
+        </div>
+    </div>
+</div>

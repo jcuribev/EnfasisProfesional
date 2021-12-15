@@ -1,0 +1,36 @@
+﻿@using Tutorias.Models;
+@using Microsoft.AspNetCore.Identity
+@inject SignInManager<ApplicationUser> SignInManager
+@inject UserManager<ApplicationUser> UserManager
+
+@model Tutor
+
+<h1>Realizar petición de tutoría.</h1>
+
+<div class="tab-content jumbotron border rounded text-break">
+
+    <form action="/TutorshipPetition/PlacePetition" method="post">
+        @Html.Hidden("tutorId", Model.Id)
+        <div class="container m-4 col-12">
+            <div class="form-row d-flex justify-content-start">
+                <div class="form-group col-md-11 m-2">
+                    <label for="Email">Correo</label>
+                    <input type="text" class="form-control" name="Email" placeholder="@User.Identity.Name" value="@ViewData["studentEmail"]" readonly />
+                </div>
+            </div>
+            <div class="form-row d-flex justify-content-start">
+                <div class="form-group col-md-11 m-2">
+                    <label for="Email">Tutor</label>
+                    <input type="text" class="form-control" name="Email" placeholder="@ViewData["tutorName"]" readonly />
+                </div>
+            </div>
+            <div class="form-row d-flex justify-content-start">
+                <div class="form-group m-2 col-md-11">
+                    <label for="message">Mensaje</label>
+                    <textarea class="form-control" name="message" placeholder="Explícale a @Model.UserName qué necesitas" rows="4"></textarea>
+                </div>
+            </div>
+            <button type="submit" class="btn btn-primary m-2">Enviar solicitud</button>
+        </div>
+    </form>
+</div>

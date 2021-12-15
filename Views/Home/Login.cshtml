@@ -1,0 +1,43 @@
+﻿@using Microsoft.AspNetCore.Identity
+@inject SignInManager<ApplicationUser> SignInManager
+@inject UserManager<ApplicationUser> UserManager
+
+@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+
+@if (SignInManager.IsSignedIn(User))
+{
+    <h1>Ya hay una sesión iniciada.</h1>
+}
+else
+{
+
+    <div class="jumbotron border rounded text-break">
+        <div class="container h-100">
+            <div class="row h-100 justify-content-center align-items-center">
+                <div class="col-10 col-md-8 col-lg-6">
+                    <!-- Form -->
+                <form class="form-example mt-4" action="" method="post">
+                        <h1>Iniciar sesión</h1>
+                        <!-- Input fields -->
+                    <div class="form-group mt-2">
+                            <label for="Email">Correo:</label>
+                            <input type="text" class="form-control username" name="Email" value="" />
+                        </div>
+                        <div class="form-group mt-2">
+                            <label for="password">Contraseña:</label>
+                            <input type="password" class="form-control password" name="Password" value="" />
+                        </div>
+                        <button type="submit" class="btn btn-primary btn-customized my-4">Iniciar sesión</button>
+                        <!-- End input fields -->
+                </form>
+                    <!-- Form end -->
+            </div>
+            </div>
+        </div>
+    </div>
+}
+

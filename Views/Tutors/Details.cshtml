@@ -1,0 +1,181 @@
+@using Tutorias.Models;
+@using Microsoft.AspNetCore.Identity
+@inject SignInManager<ApplicationUser> SignInManager
+@inject UserManager<ApplicationUser> UserManager
+
+@model Tuple<Tutor, IEnumerable<Category>, IEnumerable<Subject>, IEnumerable<TutorshipItem>>
+@{
+    ViewData["Title"] = "Details";
+}
+<div class="card-body">
+    <a class="btn btn-primary" asp-action="Index" role="button">Regresar</a>
+</div>
+
+<ul class="nav nav-tabs">
+    <li class="nav-item">
+        <a href="#profile" class="nav-link active" data-bs-toggle="tab">Perfil</a>
+    </li>
+    <li class="nav-item">
+        <a href="#reviews" class="nav-link" data-bs-toggle="tab">Reseñas</a>
+    </li>
+    <li class="nav-item">
+        <a href="#contact" class="nav-link" data-bs-toggle="tab">Contactar</a>
+    </li>
+</ul>
+<div class="tab-content jumbotron border rounded text-break">
+    <div class="tab-pane fade show active" id="profile">
+
+        <div class="container mt-2">
+            <div class="row">
+                @if (Model.Item1.ImagePath.Equals(""))
+                {
+                    <div class="col-4 m-2 text-center">
+                        <img class="card-img-top img-fluid" style="border-radius: 50%; padding:15px; object-fit: contain; height: 300px; width: 300px"
+                         src="/Images/DefaultPicture.png" alt="Foto @Model.Item1.UserName" width="300" height="300">
+                    </div>
+                }
+                else
+                {
+
+                    <div class="col-4 m-2 text-center">
+                        <img class="card-img-top img-fluid" style="border-radius: 50%; padding:15px; object-fit: contain; height: 300px; width: 300px"
+                         src="@Model.Item1.ImagePath" alt="Foto @Model.Item1.UserName" width="300" height="300">
+                    </div>
+                }
+                <div class="col-7 m-2">
+                    <div>
+                        <div class="mt-5">
+                            <h2>@Model.Item1.UserName</h2>
+                        </div>
+                        <div class="text mt-5">
+                            <h5>@Model.Item1.Description</h5>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row m-4">
+                <div class="d-flex flex-row bd-highlight mb-3 flex-wrap">
+
+                    @if (Model.Item2 != null)
+                    {
+                        @foreach (Category c in Model.Item2)
+                        {
+                            <div class="border rounded m-2">
+                                <div class="m-2">@c.Name</div>
+                            </div>
+                        }
+                    }
+                    @if (Model.Item3 != null)
+                    {
+                        @foreach (Subject s in Model.Item3)
+                        {
+                            <div class="border rounded m-2">
+                                <div class="m-2">@s.Name</div>
+                            </div>
+                        }
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="tab-pane fade" id="reviews">
+
+        @if (Model.Item4.ToList().Capacity != 0)
+        {
+            @foreach (TutorshipItem t in Model.Item4)
+            {
+                <div class="card m-3">
+                    <div class="card-header">
+                        @t.Score / 5
+                    </div>
+                    <div class="card-body">
+                        <blockquote class="blockquote mb-0">
+                            <p>@t.Description</p>
+                            <footer class="blockquote-footer">@t.StudentName</footer>
+                        </blockquote>
+                    </div>
+                </div>
+            }
+        }
+        else
+        {
+            <div class="card">
+                <div class="card-body text-center">
+                    <h3>No existen reseñas de este tutor.</h3>
+                </div>
+            </div>
+        }
+
+    </div>
+    <div class="tab-pane fade" id="contact">
+        <div class="row m-4">
+
+            <div class="d-flex flex-row bd-highlight mb-3 flex-wrap justify-content-between">
+
+                @if (Model.Item1.PhoneNumber != null)
+                {
+
+                    <div class="card my-1 mx-2" style="20%">
+                        <div class="card-body">
+                            <div class="form-check">
+                                <img class="card-img-top img-fluid" style=" height: 30px;width: 30px;"
+                                 src="/Images/media/phone.png" alt="Foto teléfono" width="20px" height="20px">
+                                <p class="my-1">@Model.Item1.PhoneNumber</p>
+                            </div>
+                        </div>
+                    </div>
+
+                }
+
+                @if (Model.Item1.TwitterLink != null)
+                {
+                    <div class="card my-1 mx-2" style="20%">
+                        <div class="card-body">
+                            <div class="form-check">
+                                <img class="card-img-top img-fluid" style=" height: 30px;width: 30px;"
+                                 src="/Images/media/twitter.png" alt="Foto teléfono" width="20px" height="20px">
+                                <p class="my-1">@Model.Item1.TwitterLink</p>
+                            </div>
+                        </div>
+                    </div>
+
+                }
+
+                @if (Model.Item1.FacebookLink != null)
+                {
+                    <div class="card my-1 mx-2" style="20%">
+                        <div class="card-body">
+                            <div class="form-check">
+                                <img class="card-img-top img-fluid" style="height: 30px;width: 30px;"
+                                 src="/Images/media/facebook.png" alt="Foto teléfono" width="20px" height="20px">
+                                <p class="my-1">@Model.Item1.FacebookLink</p>
+                            </div>
+                        </div>
+                    </div>
+
+                }
+
+                @if (Model.Item1.InstagramLink != null)
+                {
+                    <div class="card my-1 mx-2" style="20%">
+                        <div class="card-body">
+                            <div class="form-check">
+                                <img class="card-img-top img-fluid" style="height: 30px;width: 30px;"
+                                 src="/Images/media/instagram.png" alt="Foto teléfono" width="20px" height="20px">
+                                <p class="my-1"> @Model.Item1.InstagramLink</p>
+                            </div>
+                        </div>
+                    </div>
+                }
+            </div>
+            <div class="my-3 mx-1 d-flex justify-content-center" style="width=30%">
+                @if (User.IsInRole("Student"))
+                {
+                    <a class="btn btn-primary" asp-route-id="@Model.Item1.Id" asp-controller="TutorshipPetition" asp-action="Create" role="button">Solicitar Tutoría.</a>
+                }
+            </div>
+
+
+        </div>
+    </div>
+</div>

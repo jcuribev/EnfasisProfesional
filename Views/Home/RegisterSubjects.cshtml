@@ -1,0 +1,27 @@
+﻿@using Tutorias.Models;
+@model Tuple<string, IEnumerable<CheckboxItem>>
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h2>Selecciona las materias que puedes enseñar</h2>
+
+<form action="/Home/SaveSubjects" class="my-4" method="post">
+    <div class="form-group">
+        @Html.Hidden("id", Model.Item1)
+        <table>
+            @foreach (CheckboxItem c in Model.Item2)
+            {
+                <div class="card card my-1">
+                    <div class="card-body">
+                        <div class="form-check">
+                            <input type="checkbox" class="form-check-input" name="checkBoxes" id="checkBoxes" value="@c.Id">
+                            <label for="checkbox" class="form-check-label">@c.Name</label>
+                        </div>
+                    </div>
+                </div>
+            }
+        </table>
+    </div>
+    <button type="submit" class="btn btn-primary">Añadir Materias</button>
+</form>

@@ -1,0 +1,60 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+
+<h1>Registrarse como Tutor.</h1>
+
+<div class="tab-content jumbotron border rounded text-break">
+
+    <form action="/Home/RegisterTutor" method="post" enctype="multipart/form-data">
+        <div class="container m-4 col-12">
+            <div class="form-row d-flex justify-content-start">
+                <div class="form-group m-2" style="width: 35%">
+                    <label for="Username">Nombre</label>
+                    <input type="text" class="form-control" name="Username" placeholder="Nombre">
+                </div>
+                <div class="form-group m-2" style="width: 30%">
+                    <label for="Email">Correo</label>
+                    <input type="text" class="form-control" name="Email" placeholder="usuario@correo.com">
+                </div>
+                <div class="form-group m-2" style="width: 25%">
+                    <label for="Password">Contraseña</label>
+                    <input type="password" class="form-control" name="Password" placeholder="Contraseña">
+                </div>
+            </div>
+            <div class="form-row d-flex justify-content-start">
+                <div class="form-group m-2" style="width: 90%">
+                    <label for="Description">Descripción</label>
+                    <textarea class="form-control" name="Description" placeholder="¡Cuéntanos sobre ti!" rows="3"></textarea>
+                </div>
+            </div>
+            <div class="form-row d-flex justify-content-start">
+                <div class="form-group m-2" style="width: 20%">
+                    <label for="PhoneNumber">Teléfono</label>
+                    <input type="text" class="form-control" name="PhoneNumber" placeholder="Número de teléfono">
+                </div>
+                <div class="form-group m-2" style="width: 20%">
+                    <label for="Twitter">Twitter</label>
+                    <input type="text" class="form-control" name="Twitter" placeholder="@@Usuario">
+                </div>
+                <div class="form-group m-2" style="width: 20%">
+                    <label for="Facebook">Facebook</label>
+                    <input type="text" class="form-control" name="Facebook" placeholder="">
+                </div>
+                <div class="form-group m-2" style="width: 20%">
+                    <label for="Instagram">Instagram</label>
+                    <input type="text" class="form-control" name="Instagram" placeholder="">
+                </div>
+            </div>
+            <div class="form-row d-flex justify-content-start">
+                <div class="form-group m-2">
+                    <label for="ImageFile">Foto de perfil</label>
+                    <input type="file" class="form-control-file" id="ImageFile" name="ImageFile" accept="image/*">
+                </div>
+            </div>
+            <button type="submit" class="btn btn-primary mx-2 my-4">Registrarse</button>
+        </div>
+    </form>
+</div>

@@ -1,0 +1,25 @@
+﻿@using Microsoft.AspNetCore.Identity
+@inject SignInManager<ApplicationUser> SignInManager
+@inject UserManager<ApplicationUser> UserManager
+
+@if (SignInManager.IsSignedIn(User))
+{
+    <h1>Ya hay una sesión iniciada.</h1>
+}
+else
+{
+<div class="jumbotron border rounded text-break my-xxl-5">
+    <div class="container d-flex justify-content-center m-2">
+        <div class="row">
+            <h1 class="col-12 mx-2 my-4">Registrarse</h1>
+            <div class="col-12 m-2">
+                <a class="btn btn-primary" asp-action="RegisterTutor" role="button" style="width: 60%">Registarse como tutor.</a>
+            </div>
+
+            <div class="col-12 m-2">
+                <a class="btn btn-primary" asp-action="RegisterStudent" role="button" style="width: 60%">Registarse como estudiante.</a>
+            </div>
+        </div>
+    </div>
+</div>
+}

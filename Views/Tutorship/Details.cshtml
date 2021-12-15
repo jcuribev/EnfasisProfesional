@@ -1,0 +1,22 @@
+﻿@using Tutorias.Models;
+@using Microsoft.AspNetCore.Identity
+@inject SignInManager<ApplicationUser> SignInManager
+@inject UserManager<ApplicationUser> UserManager
+
+@model Tuple<Tutorship, Tutor>
+
+
+<h2>Calificar el desempeño de: @Model.Item2.UserName</h2>
+
+<form asp-action="Rate" method="post">
+    @Html.Hidden("id", Model.Item1.ID)
+    <div class="form-group col-md-2 m-2">
+        <label for="score">Correo</label>
+        <input type="text" class="form-control" name="score" placeholder="Calificación">
+    </div>
+    <div class="form-group m-2 col-md-5">
+        <label for="description">Descripción</label>
+        <textarea class="form-control" name="description" placeholder="¡Cuéntanos cómo te fue con @Model.Item2.UserName" rows="3"></textarea>
+    </div>
+    <button type="submit" class="btn btn-primary">Enviar calificación</button>
+</form>

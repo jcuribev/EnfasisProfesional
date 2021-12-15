@@ -1,0 +1,105 @@
+@model PaginatedList<Tutorias.Models.Tutor>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h2>Tutores</h2>
+
+<div class="row">
+    <div class="col-12 d-flex justify-content-start">
+        <form asp-action="Index" method="get">
+            <div class="form-actions no-color m-1">
+                <input class="form-control mr-sm-2 m-1" type="text" name="SearchString"
+                       value="@ViewData["CurrentFilter"]" placeholder="Buscar por nombre" aria-label="Buscar por nombre">
+                <input type="submit" value="Buscar" class="btn btn-outline-dark m-1" />
+                </p>
+            </div>
+        </form>
+    </div>
+
+    <div class="col-12 d-flex justify-content-start mx-2 mb-4">
+        <div class="dropdown">
+            <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink"
+               data-bs-toggle="dropdown" aria-expanded="false">
+                Ordenar por
+            </a>
+
+            <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                <li>
+                    <a class="dropdown-item" asp-action="Index" asp-route-sortOrder="@ViewData["NameSortParm"]"
+                       asp-route-currentFilter="@ViewData["CurrentFilter"]">Nombre</a>
+                </li>
+                <li>
+                    <a class="dropdown-item" asp-action="Index" asp-route-sortOrder="@ViewData["ScoreSortParm"]"
+                       asp-route-currentFilter="@ViewData["CurrentFilter"]">Puntuación</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+<div class="d-flex justify-content-around flex-wrap align-items-baseline">
+
+    @foreach (var tutor in Model)
+    {
+        
+    <div class="card border-secondary text-center mt-2 mb-3" style="width: 22rem; margin: 15px;">
+        @if (tutor.ImagePath.Equals(""))
+        {
+            <div class="m-2">
+                <img class="card-img-top img-fluid" style="border-radius: 50%; padding:15px; height: 300px; width: 300px"
+             src="/Images/DefaultPicture.png" alt="Foto @tutor.UserName" width="300" height="300">
+            </div>
+        }
+        else
+        {
+            <div class="m-2">
+                <img class="card-img-top img-fluid" style="border-radius: 50%; padding:15px; height: 300px; width: 300px"
+             src="@tutor.ImagePath" alt="Foto @tutor.UserName" width="300" height="300">
+            </div>
+        }
+        <div class="card-body">
+            <h4 class="card-title">@tutor.UserName</h4>
+        </div>
+        <ul class="list-group list-group-flush">
+            @if (tutor.AverageScore != null)
+            {
+                <li class="list-group-item">@tutor.AverageScore</li>
+            }
+            else
+            {
+                <li class="list-group-item">No hay calificaciones</li>
+            }
+        </ul>
+        <div class="card-body">
+            <a class="btn btn-primary" asp-route-id="@tutor.Id" asp-action="Details" role="button">Ver Perfil</a>
+        </div>
+    </div>
+    }
+</div>
+
+@{
+    var previousDisabled = !Model.HasPreviousPage ? "disabled" : "";
+    var nextDisabled = !Model.HasNextPage ? "disabled" : "";
+}
+
+<nav class="mt-4">
+    <ul class="pagination justify-content-center">
+        <li class="page-item">
+            <a asp-action="Index" asp-route-sortOrder="@ViewData["CurrentSort"]"
+               asp-route-pageNumber="@(Model.PageIndex - 1)" asp-route-currentFilter="@ViewData["CurrentFilter"]"
+               class="page-link btn btn-default @previousDisabled">
+                Anterior
+            </a>
+        </li>
+        <li class="page-item disabled"><a class="page-link" href="#">@Model.PageIndex</a></li>
+        <li class="page-item">
+            <a asp-action="Index" asp-route-sortOrder="@ViewData["CurrentSort"]"
+               asp-route-pageNumber="@(Model.PageIndex + 1)" asp-route-currentFilter="@ViewData["CurrentFilter"]"
+               class="page-link btn btn-default @nextDisabled">
+                Siguiente
+            </a>
+        </li>
+    </ul>
+</nav>
